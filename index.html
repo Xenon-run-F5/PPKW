@@ -1,0 +1,1334 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UrbanLeaf - E-commerce Tanaman Hias</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Loading Screen -->
+  <div class="loading-screen" id="loading-screen">
+    <div class="loading-container">
+      <div class="loading-spinner">
+        <i class="fas fa-leaf"></i>
+      </div>
+      <h3>UrbanLeaf</h3>
+      <p>Memuat konten...</p>
+      <div class="loading-bar">
+        <div class="loading-progress"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Login Overlay (akan muncul pertama kali) -->
+  <div class="login-overlay" id="login-overlay">
+    <div class="login-container">
+      <h2>Login ke UrbanLeaf</h2>
+      <form id="initial-login-form">
+        <input type="text" placeholder="No. Handphone/Username/Email" required>
+        <input type="password" placeholder="Password" required>
+        <button type="submit">Log In</button>
+      </form>
+      
+      <a href="#" class="forgot-password">Lupa Password?</a>
+      
+      <div class="divider">
+        <span>ATAU</span>
+      </div>
+      
+      <div class="social-login">
+        <button class="social-btn facebook">
+          <i class="fab fa-facebook"></i> Facebook
+        </button>
+        <button class="social-btn google">
+          <i class="fab fa-google"></i> Google
+        </button>
+      </div>
+      
+      <div class="register-link">
+        <p>Baru di UrbanLeaf?</p>
+        <a href="#" class="register-btn" onclick="showPage('register')">Daftar</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Konten Utama (akan muncul setelah login) -->
+  <div class="main-content" id="main-content">
+    <!-- Header -->
+    <header>
+      <div class="container">
+        <h1 class="logo">Urban<span>Leaf</span></h1>
+        <div class="header-search">
+          <input type="text" placeholder="Cari dekorasi...">
+          <button><i class="fas fa-search"></i></button>
+        </div>
+        <nav>
+          <ul>
+            <li><a href="#" onclick="showPage('home')">Beranda</a></li>
+            <li><a href="#" onclick="showPage('explore')">Jasa Dekor</a></li>
+            <li><a href="#" onclick="showPage('subscription')">Langganan</a></li>
+            <li><a href="#" onclick="showPage('contact')">Kontak</a></li>
+          </ul>
+        </nav>
+        <div class="header-actions">
+          <button id="theme-toggle">🌙</button>
+          <!-- Booking Icon untuk Sewa -->
+          <div class="booking-icon">
+            <a href="#" onclick="showPage('booking')">📅 <span id="booking-count">0</span></a>
+          </div>
+          <!-- Cart Icon untuk Belanja -->
+          <div class="cart-icon">
+            <a href="#" onclick="showPage('cart')">🛒 <span id="cart-count">0</span></a>
+          </div>
+          <div class="profile">
+            <a href="#" onclick="showPage('profile')"><img src="https://via.placeholder.com/40" alt="Profil" /></a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Promo Banner -->
+    <div class="promo-banner">
+      UrbanLeaf Diskon s/d 50% untuk Dekorasi Pilihan
+    </div>
+
+    <!-- Home Page -->
+    <section id="home" class="page-section active">
+      <section class="hero">
+        <div class="container">
+          <h2>Desain Ruanganmu dengan Dekorasi impianmu</h2>
+          <p>Sewa Dekorasi atau alat untuk pesta, acara keluarga, meeting, pesta penyambutan.</p>
+          <a href="#" class="btn-primary" onclick="handleExploreClick(event)">Eksplor Dekorasi</a>
+        </div>
+      </section>
+
+      <section class="categories">
+        <div class="container">
+          <h3>Kategori Populer</h3>
+          <div class="category-grid">
+            <div class="category-card" onclick="handleCategoryClick('indoor')">
+              <i class="fas fa-leaf"></i>
+              <span>Tanaman Hias Indoor</span>
+            </div>
+            <div class="category-card" onclick="handleCategoryClick('outdoor')">
+              <i class="fas fa-tree"></i>
+              <span>Tanaman Hias Outdoor</span>
+            </div>
+            <div class="category-card" onclick="handleCategoryClick('Desain Dekorasi')">
+              <i class="fas fa-spa"></i>
+              <span>Desain Dekorasi</span>
+            </div>
+            <div class="category-card" onclick="handleCategoryClick('peralatan')">
+              <i class="fas fa-tools"></i>
+              <span>Peralatan dekorasi</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="products">
+        <div class="container">
+          <h3>Rekomendasi</h3>
+          <div class="product-grid" id="home-products">
+            <!-- Products will be loaded by JavaScript -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Trust Badges Section -->
+      <section class="trust-section" id="trust-section">
+        <div class="container">
+          <div class="trust-badges">
+            <div class="trust-badge">
+              <i class="fas fa-award"></i>
+              <h4>Terpercaya Sejak 2020</h4>
+              <p>Melayani ribuan pelanggan dengan kepuasan 4.8 bintang</p>
+            </div>
+            <div class="trust-badge">
+              <i class="fas fa-truck"></i>
+              <h4>Pengiriman Cepat</h4>
+              <p>Gratis ongkir untuk pembelian di atas Rp 500.000</p>
+            </div>
+            <div class="trust-badge">
+              <i class="fas fa-shield-alt"></i>
+              <h4>Pembayaran Aman</h4>
+              <p>Transaksi dilindungi dan tersertifikasi 256-bit SSL</p>
+            </div>
+            <div class="trust-badge">
+              <i class="fas fa-headset"></i>
+              <h4>Customer Service 24/7</h4>
+              <p>Tim siap membantu melalui chat, email, atau telepon</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Testimonials Section -->
+      <section class="testimonials-section" id="testimonials-section">
+        <div class="container">
+          <h2>Apa Kata Pelanggan Kami?</h2>
+          <div class="testimonials-grid">
+            <div class="testimonial-card">
+              <div class="testimonial-header">
+                <div class="testimonial-avatar">S</div>
+                <div class="testimonial-info">
+                  <h4>Sinta Wijaya</h4>
+                  <p>Pernikahan di Jakarta</p>
+                </div>
+              </div>
+              <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
+              <p class="testimonial-text">
+                "Dekorasi pernikahan dari UrbanLeaf sangat memukau! Tim mereka sangat profesional dan responsif. Rekomendasi banget untuk yang sedang cari dekorator terpercaya!"
+              </p>
+            </div>
+
+            <div class="testimonial-card">
+              <div class="testimonial-header">
+                <div class="testimonial-avatar">B</div>
+                <div class="testimonial-info">
+                  <h4>Bambang Setio</h4>
+                  <p>Acara Kantor di Surabaya</p>
+                </div>
+              </div>
+              <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
+              <p class="testimonial-text">
+                "Dekorasi untuk seminar perusahaan kami sempurna! Harganya kompetitif dan hasilnya jauh melampaui ekspektasi. Pasti akan gunakan lagi tahun depan."
+              </p>
+            </div>
+
+            <div class="testimonial-card">
+              <div class="testimonial-header">
+                <div class="testimonial-avatar">R</div>
+                <div class="testimonial-info">
+                  <h4>Risa Kusuma</h4>
+                  <p>Pesta Ulang Tahun Anak di Bandung</p>
+                </div>
+              </div>
+              <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
+              <p class="testimonial-text">
+                "Anak saya sangat senang dengan dekorasinya! Warna-warni dan desainnya sesuai tema yang diinginkan. Pelayanan UrbanLeaf terbaik!"
+              </p>
+            </div>
+
+            <div class="testimonial-card">
+              <div class="testimonial-header">
+                <div class="testimonial-avatar">A</div>
+                <div class="testimonial-info">
+                  <h4>Ahmad Dahlan</h4>
+                  <p>Baby Shower di Medan</p>
+                </div>
+              </div>
+              <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
+              <p class="testimonial-text">
+                "Dekorasi Baby Shower yang elegan dan cantik. Stafnya membantu setting yang rumit dengan cepat. Terima kasih UrbanLeaf!"
+              </p>
+            </div>
+
+            <div class="testimonial-card">
+              <div class="testimonial-header">
+                <div class="testimonial-avatar">N</div>
+                <div class="testimonial-info">
+                  <h4>Nina Santoso</h4>
+                  <p>Acara Keluarga di Yogyakarta</p>
+                </div>
+              </div>
+              <div class="testimonial-rating">⭐⭐⭐⭐</div>
+              <p class="testimonial-text">
+                "Berkualitas, terjangkau, dan layanan memuaskan. Dekorasi tahan lama dan tidak mudah rusak. Rekomen untuk semua!"
+              </p>
+            </div>
+
+            <div class="testimonial-card">
+              <div class="testimonial-header">
+                <div class="testimonial-avatar">D</div>
+                <div class="testimonial-info">
+                  <h4>Dewi Handoko</h4>
+                  <p>Acara Promosi Toko</p>
+                </div>
+              </div>
+              <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
+              <p class="testimonial-text">
+                "Dekorasi toko saya jadi lebih menarik dan pengunjung bertambah. Team UrbanLeaf sangat kreatif dan berpengalaman. Top!"
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <!-- Explore Page -->
+    <section id="explore" class="page-section">
+      <section class="explore">
+        <h2>Eksplor Dekorasi</h2>
+        <div class="search-container">
+          <input type="text" class="search-input" placeholder="Cari dekorasi..." id="search-input">
+          <button class="search-btn" onclick="searchProducts()">Cari</button>
+        </div>
+
+        <div class="product-grid" id="explore-products">
+          <!-- Products will be loaded by JavaScript -->
+        </div>
+      </section>
+    </section>
+
+    <!-- GANTI: Cart Page menjadi Booking Page -->
+    <section id="booking" class="page-section">
+      <section class="booking-container">
+        <h2>Booking Sewa Saya</h2>
+        <div id="booking-items">
+          <!-- Booking items will be loaded by JavaScript -->
+        </div>
+        <div class="booking-total">
+          Total: Rp <span id="total-price">0</span>
+        </div>
+        <button class="checkout-btn" id="checkout-btn" onclick="showPage('checkout')">Lanjutkan ke Checkout</button>
+      </section>
+    </section>
+
+    <!-- Bukti Pemesanan Page -->
+    <section id="booking-proof" class="page-section">
+      <div class="booking-proof-container">
+        <div class="booking-header">
+          <h2>Bukti Pemesanan</h2>
+          <p>Bukti pemesanan Anda telah berhasil dibuat</p>
+        </div>
+
+        <div class="booking-proof-card">
+          <!-- Success Badge -->
+          <div class="booking-success-badge">
+            <div class="success-icon">✓</div>
+            <h3 style="color: #2ecc71; margin-bottom: 5px;">Pemesanan Berhasil</h3>
+            <p style="color: #666; margin: 0;">Pemesanan Anda sedang diproses</p>
+          </div>
+
+          <!-- Booking Details -->
+          <div class="booking-details">
+            <h4 style="margin-bottom: 15px; color: #333;">Detail Pemesanan</h4>
+            <div class="detail-row">
+              <span class="detail-label">Nomor Pemesanan</span>
+              <span class="detail-value" id="proof-booking-id"><strong>#BK-2025-001234</strong></span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Tanggal Pemesanan</span>
+              <span class="detail-value" id="proof-booking-date">19 Januari 2025, 14:30 WIB</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Nama Penyewa</span>
+              <span class="detail-value" id="proof-customer-name">-</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Nomor Referensi</span>
+              <span class="detail-value"><code style="background: #f0f0f0; padding: 5px 8px; border-radius: 3px;" id="proof-booking-ref">BK-TRX-2025-001234</code></span>
+            </div>
+          </div>
+
+          <!-- Rental Period -->
+          <div class="rental-period" style="background: #f9f9f9; padding: 15px; border-radius: 8px; margin: 15px 0;">
+            <h4 style="margin-bottom: 10px; color: #333;">Periode Sewa</h4>
+            <div class="detail-row">
+              <span class="detail-label">Mulai Sewa</span>
+              <span class="detail-value" id="proof-start-date">-</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Akhir Sewa</span>
+              <span class="detail-value" id="proof-end-date">-</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Durasi</span>
+              <span class="detail-value" id="proof-duration">-</span>
+            </div>
+          </div>
+
+          <!-- Booking Items -->
+          <div class="booking-items-list">
+            <h4 class="items-title">Item yang Disewa</h4>
+            <div id="proof-items-list">
+              <!-- Items will be loaded by JavaScript -->
+            </div>
+          </div>
+
+          <!-- Cost Breakdown -->
+          <div class="cost-breakdown" style="background: #f9f9f9; padding: 15px; border-radius: 8px; margin: 15px 0;">
+            <h4 style="margin-bottom: 10px; color: #333;">Rincian Biaya</h4>
+            <div class="detail-row">
+              <span class="detail-label">Harga Sewa</span>
+              <span class="detail-value" id="proof-rental-price">Rp 0</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Biaya Deposit</span>
+              <span class="detail-value" id="proof-deposit">Rp 0</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Biaya Asuransi</span>
+              <span class="detail-value" id="proof-insurance">Rp 0</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Biaya Pengiriman</span>
+              <span class="detail-value" id="proof-delivery">Rp 0</span>
+            </div>
+            <div style="border-top: 1px solid #ddd; margin-top: 10px; padding-top: 10px;">
+              <div class="detail-row">
+                <span class="detail-label" style="font-weight: bold;">Total Pembayaran</span>
+                <span class="detail-value" style="font-weight: bold; color: #2ecc71;" id="proof-total">Rp 0</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Delivery Address -->
+          <div class="delivery-info">
+            <h4 style="margin-bottom: 10px; color: #333;">Alamat Pengiriman</h4>
+            <div style="background: #f9f9f9; padding: 15px; border-radius: 8px;">
+              <p style="margin: 0; color: #666;" id="proof-address">-</p>
+            </div>
+          </div>
+
+          <!-- Terms & Conditions -->
+          <div class="terms-section" style="background: #f0f8ff; padding: 15px; border-radius: 8px; margin: 15px 0; border-left: 4px solid #2ecc71;">
+            <h4 style="margin: 0 0 10px 0; color: #333;">Syarat & Ketentuan Sewa</h4>
+            <ul style="margin: 0; padding-left: 20px; color: #666;">
+              <li>Penyewa bertanggung jawab atas keamanan barang yang disewa</li>
+              <li>Barang harus dikembalikan dalam kondisi baik</li>
+              <li>Denda keterlambatan sebesar 10% per hari dari harga sewa</li>
+              <li>Kerusakan akan dipotong dari uang deposit</li>
+              <li>Pembatalan dapat dilakukan paling lambat 3 hari sebelum tanggal sewa</li>
+            </ul>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="action-buttons" style="display: flex; gap: 10px; margin-top: 20px;">
+            <a href="#" class="btn-download" onclick="downloadBookingProof()" style="flex: 1; padding: 12px; text-align: center; background: #2ecc71; color: white; border-radius: 8px; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px;">
+              <i class="fas fa-download"></i> Unduh Bukti
+            </a>
+            <a href="#" class="btn-print" onclick="printBookingProof()" style="flex: 1; padding: 12px; text-align: center; background: #3498db; color: white; border-radius: 8px; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px;">
+              <i class="fas fa-print"></i> Cetak
+            </a>
+            <a href="#" class="btn-back" onclick="showPage('home')" style="flex: 1; padding: 12px; text-align: center; background: #95a5a6; color: white; border-radius: 8px; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px;">
+              <i class="fas fa-home"></i> Beranda
+            </a>
+          </div>
+
+          <div class="booking-reference" style="margin-top: 20px; padding: 15px; background: #fff3cd; border-left: 4px solid #ffc107; border-radius: 4px;">
+            <p style="margin: 0; color: #856404;"><strong>⚠️ Penting:</strong> Simpan bukti pemesanan ini untuk keperluan tracking pesanan Anda.</p>
+            <p style="margin: 10px 0 0 0; color: #856404;">Pertanyaan? Hubungi kami di support@urbanleaf.id atau WA +62 812-3456-7890</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cart Page (untuk Belanja) -->
+    <section id="cart" class="page-section">
+      <section class="cart-container">
+        <h2>Keranjang Belanja</h2>
+        <div id="cart-items">
+          <!-- Cart items will be loaded by JavaScript -->
+        </div>
+        <div class="cart-total">
+          Total: Rp <span id="total-price">0</span>
+        </div>
+        <button class="checkout-btn" id="checkout-btn" onclick="showPage('checkout')">Lanjutkan ke Checkout</button>
+      </section>
+    </section>
+
+    <!-- Checkout Page - MODIFIED -->
+    <section id="checkout" class="page-section">
+      <section class="checkout-container">
+        <div class="container">
+          <h2>Checkout</h2>
+          
+          <!-- TAMBAHAN: Info Sewa -->
+          <div class="rental-checkout-info" id="rental-checkout-info" style="display: none;">
+            <h3>Informasi Sewa</h3>
+            <div id="rental-checkout-details">
+              <!-- Detail sewa akan diisi oleh JavaScript -->
+            </div>
+          </div>
+          
+          <div class="checkout-content">
+            <div class="checkout-form">
+              <h3>Informasi Pengiriman</h3>
+              
+              <form id="checkout-form">
+                <div class="form-group">
+                  <label for="fullname">Nama Lengkap</label>
+                  <input type="text" id="fullname" name="fullname" required>
+                </div>
+                
+                <div class="form-group">
+                  <label for="email">Email</label>
+                  <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                  <label for="phone">Nomor Telepon</label>
+                  <input type="tel" id="phone" name="phone" required>
+                </div>
+                
+                <div class="form-group">
+                  <label for="address">Alamat Lengkap</label>
+                  <textarea id="address" name="address" rows="3" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                  <label for="city">Kota</label>
+                  <input type="text" id="city" name="city" required>
+                </div>
+                
+                <div class="form-group">
+                  <label for="postalcode">Kode Pos</label>
+                  <input type="text" id="postalcode" name="postalcode" required>
+                </div>
+
+                <!-- TAMBAHAN: Tanggal Mulai Sewa -->
+                <div class="form-group" id="rental-date-group" style="display: none;">
+                  <label for="rental-start-date">Tanggal Mulai Sewa</label>
+                  <input type="date" id="rental-start-date" name="rental-start-date">
+                </div>
+
+                <h3>Metode Pengiriman</h3>
+                <div class="shipping-options">
+                  <div class="shipping-option">
+                    <input type="radio" id="regular" name="shipping" value="regular" checked>
+                    <label for="regular">
+                      <span class="shipping-name">Reguler</span>
+                      <span class="shipping-duration">3-5 hari kerja</span>
+                      <span class="shipping-price">Rp 15.000</span>
+                    </label>
+                  </div>
+                  
+                  <div class="shipping-option">
+                    <input type="radio" id="express" name="shipping" value="express">
+                    <label for="express">
+                      <span class="shipping-name">Express</span>
+                      <span class="shipping-duration">1-2 hari kerja</span>
+                      <span class="shipping-price">Rp 25.000</span>
+                    </label>
+                  </div>
+                </div>
+
+                <h3>Metode Pembayaran</h3>
+                <div class="payment-options">
+                  <!-- Transfer Bank Options -->
+                  <div class="payment-group">
+                    <div class="payment-group-title">Transfer Bank</div>
+                    <div class="payment-items">
+                      <div class="payment-item">
+                        <input type="radio" id="bca" name="payment-method" value="bca">
+                        <label for="bca">BCA (Bank Central Asia)</label>
+                      </div>
+                      <div class="payment-item">
+                        <input type="radio" id="bni" name="payment-method" value="bni">
+                        <label for="bni">BNI (Bank Negara Indonesia)</label>
+                      </div>
+                      <div class="payment-item">
+                        <input type="radio" id="mandiri" name="payment-method" value="mandiri">
+                        <label for="mandiri">Mandiri</label>
+                      </div>
+                      <div class="payment-item">
+                        <input type="radio" id="bri" name="payment-method" value="bri">
+                        <label for="bri">BRI (Bank Rakyat Indonesia)</label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- E-Wallet Options -->
+                  <div class="payment-group">
+                    <div class="payment-group-title">E-Wallet</div>
+                    <div class="payment-items">
+                      <div class="payment-item">
+                        <input type="radio" id="gopay" name="payment-method" value="gopay">
+                        <label for="gopay">Gopay</label>
+                      </div>
+                      <div class="payment-item">
+                        <input type="radio" id="ovo" name="payment-method" value="ovo">
+                        <label for="ovo">OVO</label>
+                      </div>
+                      <div class="payment-item">
+                        <input type="radio" id="dana" name="payment-method" value="dana">
+                        <label for="dana">Dana</label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- COD Option -->
+                  <div class="payment-group">
+                    <div class="payment-items">
+                      <div class="payment-item">
+                        <input type="radio" id="cod" name="payment-method" value="cod" checked>
+                        <label for="cod">
+                          <span class="payment-name">COD (Cash on Delivery)</span>
+                          <span class="payment-desc">Bayar saat barang diterima</span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+            
+            <div class="order-summary">
+              <h3>Ringkasan Pesanan</h3>
+              <div id="order-items">
+                <!-- Items will be filled by JavaScript -->
+              </div>
+              
+              <div class="summary-details">
+                <div class="summary-row">
+                  <span>Subtotal</span>
+                  <span id="subtotal">Rp 0</span>
+                </div>
+                <div class="summary-row">
+                  <span>Biaya Pengiriman</span>
+                  <span id="shipping-cost">Rp 0</span>
+                </div>
+                <!-- TAMBAHAN: Deposit untuk sewa -->
+                <div class="summary-row" id="deposit-row" style="display: none;">
+                  <span>Deposit</span>
+                  <span id="deposit-amount">Rp 0</span>
+                </div>
+                <div class="summary-row total">
+                  <span>Total</span>
+                  <span id="total-amount">Rp 0</span>
+                </div>
+              </div>
+              
+              <button class="pay-btn" id="pay-btn">Bayar Sekarang</button>
+              <button class="back-btn" id="back-to-cart-btn" onclick="handleBackToCart()">Kembali ke Keranjang</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <!-- Profile Page -->
+    <section id="profile" class="page-section">
+      <section class="profile-container">
+        <div class="profile-header">
+          <div class="profile-avatar-wrapper">
+            <img src="https://via.placeholder.com/120" alt="Profil" class="profile-avatar" id="profile-avatar-img">
+            <div class="profile-avatar-overlay">
+              <button type="button" class="upload-photo-btn" onclick="document.getElementById('avatar-upload').click()">
+                <i class="fas fa-camera"></i> Upload Foto
+              </button>
+              <input type="file" id="avatar-upload" accept="image/*" style="display: none;">
+            </div>
+          </div>
+          <h2>Profil Pengguna</h2>
+          <p class="profile-subtitle">Kelola informasi akun Anda</p>
+        </div>
+        
+        <div class="profile-form">
+          <form id="profile-form">
+            <div class="form-group">
+              <label for="name"><i class="fas fa-user"></i> Nama Lengkap</label>
+              <input type="text" id="name" name="name" placeholder="Masukkan nama lengkap Anda" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="email"><i class="fas fa-envelope"></i> Email</label>
+              <input type="email" id="email" name="email" placeholder="Masukkan email Anda" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="phone"><i class="fas fa-phone"></i> Nomor Telepon</label>
+              <input type="tel" id="phone" name="phone" placeholder="Masukkan nomor telepon Anda">
+            </div>
+            
+            <div class="form-group">
+              <label for="address"><i class="fas fa-map-marker-alt"></i> Alamat</label>
+              <textarea id="address" name="address" placeholder="Masukkan alamat lengkap Anda" rows="4"></textarea>
+            </div>
+            
+            <div class="profile-button-group">
+              <button type="submit" class="save-btn"><i class="fas fa-save"></i> Simpan Perubahan</button>
+              <button type="button" class="logout-btn" onclick="handleLogout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+            </div>
+          </form>
+        </div>
+      </section>
+    </section>
+
+    <!-- Login Page -->
+    <section id="login" class="page-section">
+      <div class="login-wrapper">
+        <div class="logo">
+          <h1>UrbanLeaf</h1>
+          <p>Lebih Hemat, Lebih Cepat</p>
+        </div>
+        
+        <div class="login-container">
+          <h2>Log in</h2>
+          <form id="login-form">
+            <input type="text" placeholder="No. Handphone/Username/Email" required>
+            <input type="password" placeholder="Password" required>
+            <button type="submit" class="login-btn">Log In</button>
+          </form>
+          
+          <a href="#" class="forgot-password">Lupa Password?</a>
+          
+          <div class="divider">
+            <span>ATAU</span>
+          </div>
+          
+          <div class="social-login">
+            <button class="social-btn facebook">
+              <i class="fab fa-facebook"></i> Facebook
+            </button>
+            <button class="social-btn google">
+              <i class="fab fa-google"></i> Google
+            </button>
+          </div>
+          
+          <div class="register-link">
+            <p>Baru di UrbanLeaf?</p>
+            <a href="#" class="register-btn" onclick="showPage('register')">Daftar</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Register Page -->
+    <section id="register" class="page-section">
+      <div class="register-wrapper">
+        <div class="logo">
+          <h1>UrbanLeaf</h1>
+          <p>Lebih Hemat, Lebih Cepat</p>
+        </div>
+        
+        <div class="register-container">
+          <h2>Daftar Akun Baru</h2>
+          <form id="register-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="first-name">Nama Depan</label>
+                <input type="text" id="first-name" placeholder="Nama Depan" required>
+              </div>
+              <div class="form-group">
+                <label for="last-name">Nama Belakang</label>
+                <input type="text" id="last-name" placeholder="Nama Belakang" required>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" placeholder="Alamat Email" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="phone">No. Handphone</label>
+              <input type="tel" id="phone" placeholder="No. Handphone" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" id="password" placeholder="Password" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="confirm-password">Konfirmasi Password</label>
+              <input type="password" id="confirm-password" placeholder="Ulangi Password" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="gender">Jenis Kelamin</label>
+              <select id="gender">
+                <option value="">Pilih Jenis Kelamin</option>
+                <option value="male">Laki-laki</option>
+                <option value="female">Perempuan</option>
+                <option value="other">Lainnya</option>
+              </select>
+            </div>
+            
+            <div class="terms">
+              <input type="checkbox" id="terms" required>
+              <label for="terms">Saya menyetujui <a href="#">Syarat & Ketentuan</a> dan <a href="#">Kebijakan Privasi</a> UrbanLeaf</label>
+            </div>
+            
+            <button type="submit">DAFTAR</button>
+          </form>
+          
+          <div class="divider">
+            <span>ATAU</span>
+          </div>
+          
+          <div class="social-register">
+            <button class="social-btn facebook">
+              <i class="fab fa-facebook"></i> Facebook
+            </button>
+            <button class="social-btn google">
+              <i class="fab fa-google"></i> Google
+            </button>
+          </div>
+          
+          <div class="login-link">
+            <p>Sudah punya akun?</p>
+            <a href="#" class="login-btn" onclick="showPage('login')">Masuk</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Product Detail Page - MODIFIED -->
+    <section id="product-detail" class="page-section">
+      <section class="product-detail-container">
+        <div class="container">
+          <div class="product-detail">
+            <div class="product-image">
+              <img src="https://via.placeholder.com/500" alt="Product Image" id="detail-image">
+            </div>
+            <div class="product-info">
+              <h2 id="detail-name">Product Name</h2>
+              <div class="product-price" id="detail-price">Rp 0</div>
+              <p id="detail-description">Product description goes here.</p>
+              
+              <!-- Mode Selector: Beli atau Sewa -->
+              <div class="mode-selector">
+                <button class="mode-btn active" onclick="switchMode('buy')">💳 Beli</button>
+                <button class="mode-btn" onclick="switchMode('rent')">📅 Sewa</button>
+              </div>
+              
+              <div class="product-features">
+                <h3>Fitur:</h3>
+                <ul>
+                  <li>Desain dekorasi yang cocok untuk acara</li>
+                  <li>Cocok untuk pemula</li>
+                  <li>Membersihkan udara</li>
+                  <li>Tinggi: 40-60 cm</li>
+                </ul>
+              </div>
+
+              <!-- TAMBAHAN: Periode Sewa -->
+              <div class="rental-period">
+                <h4>Pilih Periode Sewa:</h4>
+                <div class="rental-options">
+                  <div class="rental-option">
+                    <input type="radio" id="rent-1day" name="rental-period" value="1" checked>
+                    <label for="rent-1day">
+                      1 Hari
+                      <div class="rental-price">Rp 50.000</div>
+                    </label>
+                  </div>
+                  <div class="rental-option">
+                    <input type="radio" id="rent-3days" name="rental-period" value="3">
+                    <label for="rent-3days">
+                      3 Hari
+                      <div class="rental-price">Rp 120.000</div>
+                    </label>
+                  </div>
+                  <div class="rental-option">
+                    <input type="radio" id="rent-1week" name="rental-period" value="7">
+                    <label for="rent-1week">
+                      1 Minggu
+                      <div class="rental-price">Rp 250.000</div>
+                    </label>
+                  </div>
+                  <div class="rental-option">
+                    <input type="radio" id="rent-2weeks" name="rental-period" value="14">
+                    <label for="rent-2weeks">
+                      2 Minggu
+                      <div class="rental-price">Rp 450.000</div>
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <!-- TAMBAHAN: Detail Sewa -->
+              <div class="rental-details">
+                <h4>Ringkasan Sewa:</h4>
+                <div class="rental-summary">
+                  <div class="rental-summary-row">
+                    <span>Harga Sewa:</span>
+                    <span id="rental-price-summary">Rp 50.000</span>
+                  </div>
+                  <div class="rental-summary-row">
+                    <span>Deposit:</span>
+                    <span>Rp 100.000</span>
+                  </div>
+                  <div class="rental-summary-row rental-total">
+                    <span>Total Pembayaran:</span>
+                    <span id="rental-total">Rp 150.000</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="quantity-selector">
+                <label for="quantity">Jumlah:</label>
+                <input type="number" id="quantity" name="quantity" min="1" value="1">
+              </div>
+
+              <!-- Buy Quantity Selector (untuk mode beli) -->
+              <div class="buy-quantity" style="display: none;">
+                <label for="buy-quantity">Jumlah:</label>
+                <input type="number" id="buy-quantity" name="buy-quantity" min="1" value="1">
+              </div>
+
+              <!-- TAMBAHAN: Tombol Aksi -->
+              <div class="action-buttons">
+                <div class="buy-action-buttons" style="display: none;">
+                  <button class="btn-add-to-cart-large" id="add-to-cart-detail" onclick="handleAddToCart()">Tambah ke Keranjang</button>
+                  <button class="btn-buy-now" id="buy-now-detail" onclick="handleDirectBuy()">Beli Sekarang</button>
+                </div>
+                <button class="btn-rent-now" id="rent-now">Booking Sekarang</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAMBAHAN: Kolom Komentar & Rating -->
+          <div class="product-comments-section">
+            <h3>Ulasan & Komentar Pelanggan</h3>
+            
+            <!-- Form Tambah Komentar -->
+            <div class="add-comment-form">
+              <h4>Bagikan Pengalaman Anda</h4>
+              <form id="comment-form" onsubmit="submitProductComment(event)">
+                <div class="rating-selector">
+                  <label>Rating Anda:</label>
+                  <div class="stars-input">
+                    <i class="fas fa-star" onclick="setCommentRating(1)" data-rating="1"></i>
+                    <i class="fas fa-star" onclick="setCommentRating(2)" data-rating="2"></i>
+                    <i class="fas fa-star" onclick="setCommentRating(3)" data-rating="3"></i>
+                    <i class="fas fa-star" onclick="setCommentRating(4)" data-rating="4"></i>
+                    <i class="fas fa-star" onclick="setCommentRating(5)" data-rating="5"></i>
+                  </div>
+                  <input type="hidden" id="comment-rating" value="5">
+                </div>
+
+                <div class="form-group">
+                  <input type="text" id="comment-name" placeholder="Nama Anda" required>
+                </div>
+
+                <div class="form-group">
+                  <textarea id="comment-text" placeholder="Tulis komentar Anda..." rows="4" required></textarea>
+                </div>
+
+                <button type="submit" class="comment-submit-btn">Kirim Ulasan</button>
+              </form>
+            </div>
+
+            <!-- Daftar Komentar -->
+            <div class="comments-list" id="comments-list">
+              <!-- Comments will be loaded by JavaScript -->
+            </div>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <!-- Subscription Page -->
+    <section id="subscription" class="page-section">
+      <section class="subscription-container">
+        <div class="container">
+          <h2>Paket Langganan UrbanLeaf</h2>
+          <p class="subtitle">Pilih paket yang sesuai dengan kebutuhan dekorasi Anda</p>
+          
+          <div class="subscription-grid">
+            <!-- Basic Plan -->
+            <div class="subscription-card">
+              <div class="plan-badge">Populer</div>
+              <h3>Starter</h3>
+              <div class="plan-price">
+                <span class="currency">Rp</span>
+                <span class="amount">99.000</span>
+                <span class="period">/bulan</span>
+              </div>
+              <p class="plan-description">Sempurna untuk pemula</p>
+              
+              <ul class="plan-features">
+                <li><i class="fas fa-check"></i> Akses ke 50+ desain dekorasi</li>
+                <li><i class="fas fa-check"></i> Diskon 10% untuk setiap pemesanan</li>
+                <li><i class="fas fa-check"></i> Konsultasi desain 1x/bulan</li>
+                <li><i class="fas fa-check"></i> Customer support via email</li>
+                <li><i class="fas fa-times"></i> Akses ke koleksi premium</li>
+                <li><i class="fas fa-times"></i> Priority support 24/7</li>
+              </ul>
+              
+              <button class="btn-subscribe">Pilih Paket</button>
+            </div>
+
+            <!-- Professional Plan -->
+            <div class="subscription-card featured">
+              <div class="plan-badge featured">Terbaik</div>
+              <h3>Professional</h3>
+              <div class="plan-price">
+                <span class="currency">Rp</span>
+                <span class="amount">299.000</span>
+                <span class="period">/bulan</span>
+              </div>
+              <p class="plan-description">Untuk acara profesional</p>
+              
+              <ul class="plan-features">
+                <li><i class="fas fa-check"></i> Akses ke 200+ desain dekorasi</li>
+                <li><i class="fas fa-check"></i> Diskon 20% untuk setiap pemesanan</li>
+                <li><i class="fas fa-check"></i> Konsultasi desain unlimited</li>
+                <li><i class="fas fa-check"></i> Customer support via chat 24/7</li>
+                <li><i class="fas fa-check"></i> Akses ke koleksi premium</li>
+                <li><i class="fas fa-times"></i> Priority support dedicated</li>
+              </ul>
+              
+              <button class="btn-subscribe featured">Pilih Paket</button>
+            </div>
+
+            <!-- Enterprise Plan -->
+            <div class="subscription-card">
+              <div class="plan-badge">Eksklusif</div>
+              <h3>Enterprise</h3>
+              <div class="plan-price">
+                <span class="currency">Rp</span>
+                <span class="amount">999.000</span>
+                <span class="period">/bulan</span>
+              </div>
+              <p class="plan-description">Untuk acara besar & korporat</p>
+              
+              <ul class="plan-features">
+                <li><i class="fas fa-check"></i> Akses ke semua desain dekorasi</li>
+                <li><i class="fas fa-check"></i> Diskon 30% untuk setiap pemesanan</li>
+                <li><i class="fas fa-check"></i> Konsultasi desain unlimited</li>
+                <li><i class="fas fa-check"></i> Priority support 24/7 dedicated</li>
+                <li><i class="fas fa-check"></i> Akses ke koleksi premium & eksklusif</li>
+                <li><i class="fas fa-check"></i> Account manager personal</li>
+              </ul>
+              
+              <button class="btn-subscribe">Pilih Paket</button>
+            </div>
+          </div>
+
+          <!-- FAQ Section -->
+          <div class="faq-section">
+            <h3>Pertanyaan Umum</h3>
+            <div class="faq-items">
+              <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                  <span>Bagaimana cara membatalkan langganan?</span>
+                  <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                  <p>Anda dapat membatalkan langganan kapan saja melalui halaman pengaturan akun Anda. Pembatalan berlaku efektif pada akhir periode penagihan saat ini.</p>
+                </div>
+              </div>
+
+              <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                  <span>Apakah ada biaya tambahan?</span>
+                  <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                  <p>Tidak ada biaya tersembunyi. Biaya yang Anda lihat adalah harga final bulanan. Diskon langganan sudah termasuk dalam paket.</p>
+                </div>
+              </div>
+
+              <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                  <span>Bisakah saya mengubah paket langganan?</span>
+                  <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                  <p>Tentu! Anda bisa upgrade atau downgrade paket kapan saja. Perubahan akan berlaku pada periode penagihan berikutnya.</p>
+                </div>
+              </div>
+
+              <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                  <span>Apakah ada trial gratis?</span>
+                  <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                  <p>Ya! Anda dapat mencoba paket Starter selama 7 hari pertama tanpa biaya. Tidak perlu kartu kredit untuk memulai.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <!-- Contact Page -->
+    <section id="contact" class="page-section">
+      <section class="contact-container">
+        <div class="container">
+          <h2>Hubungi Kami</h2>
+          <p class="subtitle">Tim kami siap membantu Anda 24/7</p>
+          
+          <div class="contact-content">
+            <!-- Contact Form -->
+            <div class="contact-form-wrapper">
+              <h3>Kirim Pesan</h3>
+              <form id="contact-form" class="contact-form">
+                <div class="form-group">
+                  <label for="contact-name">Nama Lengkap</label>
+                  <input type="text" id="contact-name" name="name" placeholder="Nama Anda" required>
+                </div>
+
+                <div class="form-group">
+                  <label for="contact-email">Email</label>
+                  <input type="email" id="contact-email" name="email" placeholder="Email Anda" required>
+                </div>
+
+                <div class="form-group">
+                  <label for="contact-phone">Nomor Telepon</label>
+                  <input type="tel" id="contact-phone" name="phone" placeholder="No. Telepon Anda">
+                </div>
+
+                <div class="form-group">
+                  <label for="contact-subject">Subjek</label>
+                  <select id="contact-subject" name="subject" required>
+                    <option value="">Pilih Subjek</option>
+                    <option value="inquiry">Pertanyaan Umum</option>
+                    <option value="complaint">Keluhan/Saran</option>
+                    <option value="partnership">Kerjasama</option>
+                    <option value="support">Bantuan Teknis</option>
+                    <option value="other">Lainnya</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="contact-message">Pesan</label>
+                  <textarea id="contact-message" name="message" placeholder="Tulis pesan Anda..." rows="6" required></textarea>
+                </div>
+
+                <button type="submit" class="btn-send-message">Kirim Pesan</button>
+              </form>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="contact-info-wrapper">
+              <h3>Informasi Kontak</h3>
+              
+              <div class="contact-info-item">
+                <div class="info-icon">
+                  <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <div class="info-content">
+                  <h4>Alamat</h4>
+                  <p>Jl. Dekorasi Indah No. 123<br>Jakarta Selatan, 12345<br>Indonesia</p>
+                </div>
+              </div>
+
+              <div class="contact-info-item">
+                <div class="info-icon">
+                  <i class="fas fa-phone"></i>
+                </div>
+                <div class="info-content">
+                  <h4>Telepon</h4>
+                  <p><a href="tel:+6221123456">+62 (21) 123-4567</a></p>
+                  <p><a href="tel:+628001234567">0800-1-234-567 (Gratis)</a></p>
+                </div>
+              </div>
+
+              <div class="contact-info-item">
+                <div class="info-icon">
+                  <i class="fas fa-envelope"></i>
+                </div>
+                <div class="info-content">
+                  <h4>Email</h4>
+                  <p><a href="mailto:info@urbanleaf.id">info@urbanleaf.id</a></p>
+                  <p><a href="mailto:support@urbanleaf.id">support@urbanleaf.id</a></p>
+                </div>
+              </div>
+
+              <div class="contact-info-item">
+                <div class="info-icon">
+                  <i class="fas fa-clock"></i>
+                </div>
+                <div class="info-content">
+                  <h4>Jam Operasional</h4>
+                  <p>Senin - Jumat: 08:00 - 18:00<br>Sabtu: 09:00 - 16:00<br>Minggu: Tutup</p>
+                </div>
+              </div>
+
+              <div class="contact-socials">
+                <h4>Ikuti Kami</h4>
+                <div class="social-icons">
+                  <a href="#" class="social-icon facebook" title="Facebook"><i class="fab fa-facebook"></i></a>
+                  <a href="#" class="social-icon instagram" title="Instagram"><i class="fab fa-instagram"></i></a>
+                  <a href="#" class="social-icon twitter" title="Twitter"><i class="fab fa-twitter"></i></a>
+                  <a href="#" class="social-icon whatsapp" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Location Map -->
+          <div class="location-map">
+            <h3>Lokasi Kami</h3>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.521260322635!2d106.8270321!3d-6.2947926!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f3e6c9b6b6b7%3A0x4b4b4b4b4b4b4b4b!2sUrban%20Leaf!5e0!3m2!1sid!2sid!4v1234567890" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+        </div>
+      </section>
+    </section>
+
+
+    <!-- Payment Proof Page -->
+    <section id="payment-proof" class="page-section">
+      <div class="payment-proof-container">
+        <div class="payment-header">
+          <h2>Bukti Pembayaran</h2>
+          <p>Pesanan Anda telah berhasil ditambahkan ke keranjang</p>
+        </div>
+
+        <div class="payment-proof-card">
+          <!-- Success Badge -->
+          <div class="payment-success-badge" id="payment-badge">
+            <div class="success-icon" id="badge-icon">💳</div>
+            <h3 id="badge-title" style="color: #2ecc71; margin-bottom: 5px;">Pembayaran Berhasil</h3>
+            <p id="badge-message" style="color: #666; margin: 0;">Transaksi Anda sedang diproses</p>
+          </div>
+
+          <!-- Payment Details -->
+          <div class="payment-details">
+            <h4 style="margin-bottom: 15px; color: #333;">Detail Pembayaran</h4>
+            <div class="detail-row">
+              <span class="detail-label">Nomor Pesanan</span>
+              <span class="detail-value" id="proof-order-id"><strong>#OR-2025-001234</strong></span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Tanggal Pembayaran</span>
+              <span class="detail-value" id="payment-date">19 Januari 2025, 14:30 WIB</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Nama Pelanggan</span>
+              <span class="detail-value" id="proof-customer-name">-</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Email</span>
+              <span class="detail-value" id="proof-customer-email">-</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">No. Telepon</span>
+              <span class="detail-value" id="proof-customer-phone">-</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Nomor Referensi</span>
+              <span class="detail-value"><code style="background: #f0f0f0; padding: 5px 8px; border-radius: 3px;" id="proof-reference">TRX-2025-0012340001</code></span>
+            </div>
+          </div>
+
+          <!-- Order Items -->
+          <div class="order-items">
+            <h4 class="items-title">Ringkasan Pesanan</h4>
+            <div id="proof-items-list">
+              <!-- Items will be loaded by JavaScript -->
+            </div>
+          </div>
+
+          <!-- Cost Breakdown -->
+          <div class="cost-breakdown" style="background: #f9f9f9; padding: 15px; border-radius: 8px; margin: 15px 0;">
+            <h4 style="margin-bottom: 10px; color: #333;">Rincian Biaya</h4>
+            <div class="detail-row">
+              <span class="detail-label">Subtotal Barang</span>
+              <span class="detail-value" id="proof-subtotal">Rp 0</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Biaya Pengiriman</span>
+              <span class="detail-value" id="proof-shipping-cost">Rp 0</span>
+            </div>
+          </div>
+
+          <!-- Payment Method Info - HIGHLIGHTED -->
+          <div class="payment-methods" id="payment-methods-section" style="background: #e8f8f5; border: 2px solid #2ecc71; padding: 20px; border-radius: 8px; margin: 15px 0;">
+            <h4 class="method-title" style="color: #27ae60; margin-bottom: 15px;">📱 Metode Pembayaran</h4>
+            <div class="detail-row">
+              <span class="detail-label">Metode</span>
+              <span class="detail-value" style="font-weight: bold; color: #2ecc71;" id="proof-payment-method">Bayar saat barang diterima</span>
+            </div>
+            <div class="method-info" id="payment-info-details" style="background: white; padding: 15px; border-radius: 5px; margin-top: 10px;">
+              <!-- Payment method details will be loaded by JavaScript -->
+            </div>
+          </div>
+
+          <!-- Total Section - EMPHASIZED -->
+          <div class="total-section" id="total-section" style="background: linear-gradient(135deg, #2ecc71, #27ae60); color: white; padding: 20px; border-radius: 8px; margin: 15px 0;">
+            <div class="total-amount" style="display: flex; justify-content: space-between; align-items: center;">
+              <span style="font-size: 18px;">Total Pembayaran:</span>
+              <span id="proof-total" style="font-size: 28px; font-weight: bold;">Rp 629.000</span>
+            </div>
+          </div>
+
+          <!-- Shipping Address -->
+          <div class="shipping-info" style="background: #f9f9f9; padding: 15px; border-radius: 8px; margin: 15px 0;">
+            <h4 style="margin-bottom: 10px; color: #333;">Alamat Pengiriman</h4>
+            <div style="background: white; padding: 10px; border-radius: 5px;">
+              <p style="margin: 0; color: #666;" id="proof-address">-</p>
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="action-buttons">
+            <a href="#" class="btn-download" onclick="downloadPaymentProof()">
+              <i class="fas fa-download"></i> Unduh Bukti
+            </a>
+            <a href="#" class="btn-back" onclick="showPage('home')">
+              <i class="fas fa-home"></i> Kembali ke Beranda
+            </a>
+          </div>
+
+          <div class="payment-reference">
+            <p>Simpan nomor referensi ini untuk keperluan tracking pesanan Anda.</p>
+            <p>Pertanyaan? Hubungi kami di support@urbanleaf.id atau WA +62 812-3456-7890</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <p>&copy; 2025 UrbanLeaf.id • Ruangan lebih indah dengan variasi 🌱</p>
+      </div>
+    </footer>
+
+    <!-- Success Modal -->
+    <div class="success-modal" id="success-modal">
+      <div class="modal-content">
+        <div class="modal-icon">✅</div>
+        <h3>Pembayaran Berhasil!</h3>
+        <p>Terima kasih telah berbelanja di UrbanLeaf. Pesanan Anda sedang diproses.</p>
+        <p><strong>Order ID: #<span id="order-id">0</span></strong></p>
+        <div style="margin-top: 20px; display: flex; gap: 10px; justify-content: center;">
+          <a href="#" class="modal-btn" onclick="showPage('home')">Kembali ke Beranda</a>
+          <a href="#" class="modal-btn" onclick="showPage('profile')">Lihat Pesanan</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Newsletter Section -->
+    <section style="background: #fff; padding: 20px;">
+      <div class="container">
+        <div class="newsletter-section">
+          <h2>Jangan Lewatkan Penawaran Terbaru!</h2>
+          <p>Dapatkan diskon eksklusif dan tips dekorasi langsung ke email Anda</p>
+          <form class="newsletter-form" onsubmit="handleNewsletterSignup(event)">
+            <input type="email" placeholder="Masukkan email Anda" required>
+            <button type="submit">Daftar Sekarang</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Live Chat Widget -->
+  <div class="live-chat-widget">
+    <button class="chat-button" onclick="toggleChatWidget()">
+      <i class="fas fa-comments"></i>
+      <span class="chat-badge">2</span>
+    </button>
+    <div class="chat-popup" id="chat-popup">
+      <div class="chat-header">
+        <span>UrbanLeaf Support</span>
+        <button class="chat-close-btn" onclick="toggleChatWidget()">×</button>
+      </div>
+      <div class="chat-messages" id="chat-messages">
+        <div class="chat-message agent">
+          <div class="chat-bubble">Halo! Ada yang bisa kami bantu? 😊</div>
+        </div>
+      </div>
+      <div class="chat-input">
+        <input type="text" id="chat-input-field" placeholder="Tulis pesan..." onkeypress="handleChatMessage(event)">
+        <button onclick="sendChatMessage()">Kirim</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
